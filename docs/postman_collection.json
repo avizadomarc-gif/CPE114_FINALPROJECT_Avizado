@@ -1,0 +1,247 @@
+{
+  "info": {
+    "name": "Library System API",
+    "description": "Complete Postman collection for the Library System REST API. Covers Authors, Books, Members, and Borrow/Return relationship endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authors",
+      "item": [
+        {
+          "name": "Get All Authors",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3000/authors",
+            "description": "Returns a list of all authors in the database."
+          }
+        },
+        {
+          "name": "Get Author by ID",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3000/authors/1",
+            "description": "Returns a single author by ID including their books. Returns 404 if not found."
+          }
+        },
+        {
+          "name": "Create Author",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:3000/authors",
+            "description": "Creates a new author. Requires 'name'. Returns 201 on success, 400 if name is missing.",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"J.K. Rowling\",\n  \"bio\": \"British author best known for the Harry Potter series.\",\n  \"nationality\": \"British\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Author",
+          "request": {
+            "method": "PUT",
+            "url": "http://localhost:3000/authors/1",
+            "description": "Updates an existing author by ID. Returns 404 if not found.",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"J.K. Rowling\",\n  \"bio\": \"Updated biography text.\",\n  \"nationality\": \"British\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Author",
+          "request": {
+            "method": "DELETE",
+            "url": "http://localhost:3000/authors/1",
+            "description": "Deletes an author by ID. Returns 404 if not found."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Books",
+      "item": [
+        {
+          "name": "Get All Books",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3000/books",
+            "description": "Returns all books with their associated Author."
+          }
+        },
+        {
+          "name": "Get Book by ID",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3000/books/1",
+            "description": "Returns a single book by ID with Author and Members who borrowed it. Returns 404 if not found."
+          }
+        },
+        {
+          "name": "Create Book",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:3000/books",
+            "description": "Creates a new book. Requires title, isbn, and authorId. Returns 201 on success, 400 if fields are missing or ISBN is duplicate.",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Harry Potter and the Philosopher's Stone\",\n  \"isbn\": \"9780747532699\",\n  \"genre\": \"Fantasy\",\n  \"publishedYear\": 1997,\n  \"copiesAvailable\": 5,\n  \"authorId\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Book",
+          "request": {
+            "method": "PUT",
+            "url": "http://localhost:3000/books/1",
+            "description": "Updates a book by ID. Returns 404 if not found.",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Harry Potter and the Philosopher's Stone\",\n  \"isbn\": \"9780747532699\",\n  \"genre\": \"Fantasy\",\n  \"publishedYear\": 1997,\n  \"copiesAvailable\": 10,\n  \"authorId\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Book",
+          "request": {
+            "method": "DELETE",
+            "url": "http://localhost:3000/books/1",
+            "description": "Deletes a book by ID. Returns 404 if not found."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Members",
+      "item": [
+        {
+          "name": "Get All Members",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3000/members",
+            "description": "Returns all library members."
+          }
+        },
+        {
+          "name": "Get Member by ID",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3000/members/1",
+            "description": "Returns a member by ID including their borrowed books. Returns 404 if not found."
+          }
+        },
+        {
+          "name": "Create Member",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:3000/members",
+            "description": "Creates a new library member. Requires name and email. Returns 201 on success, 400 if fields are missing or email is duplicate.",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Alice Santos\",\n  \"email\": \"alice@example.com\",\n  \"phone\": \"09171234567\",\n  \"membershipDate\": \"2024-01-15\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Member",
+          "request": {
+            "method": "PUT",
+            "url": "http://localhost:3000/members/1",
+            "description": "Updates a member by ID. Returns 404 if not found.",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Alice Santos\",\n  \"email\": \"alice.updated@example.com\",\n  \"phone\": \"09179999999\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Member",
+          "request": {
+            "method": "DELETE",
+            "url": "http://localhost:3000/members/1",
+            "description": "Deletes a member by ID. Returns 404 if not found."
+          }
+        },
+        {
+          "name": "Borrow a Book",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:3000/members/1/borrow",
+            "description": "Member borrows a book. Requires bookId. Returns 400 if no copies available, 404 if member or book not found. Returns 201 on success.",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bookId\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Return a Book",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:3000/members/1/return",
+            "description": "Member returns a borrowed book. Requires bookId. Returns 404 if no active borrow record found.",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bookId\": 1\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Error Cases",
+      "item": [
+        {
+          "name": "404 - Unknown Route",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3000/nonexistent",
+            "description": "Tests the catch-all 404 handler for undefined routes."
+          }
+        },
+        {
+          "name": "400 - Create Book Missing Fields",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:3000/books",
+            "description": "Tests validation: should return 400 when required fields are missing.",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"genre\": \"Fiction\"\n}"
+            }
+          }
+        },
+        {
+          "name": "400 - Create Member Missing Fields",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:3000/members",
+            "description": "Tests validation: should return 400 when name or email is missing.",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"phone\": \"09170000000\"\n}"
+            }
+          }
+        },
+        {
+          "name": "404 - Get Non-Existent Author",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3000/authors/99999",
+            "description": "Tests 404 response when an author ID does not exist."
+          }
+        }
+      ]
+    }
+  ]
+}
